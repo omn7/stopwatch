@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop-Watch</title>
+    <link rel="stylesheet"  href="style.css">
+</head>
+<body>
+   <div class="stopwatch">
+      <h1 id="timing">00:00:00</h1>
+   </div>
+   <div id="imgs">
+      <img src="./assets/stop.png" onclick="watchStop()">
+      <img src="./assets/play.png"onclick="watchStart()">
+      <img src="./assets/reset.png"onclick="watchReset()">
+   </div>
+   <div class="footer">
+      <a href="https://github.com/omn7/" target="_blank"> <button id="thank" >More Projects By Om N</button></a>
+     
+   </div>
+   <script>
+      var [second, minute, hour] = [0, 0, 0];
+      var timing = document.getElementById("timing");
+      var thing = null;
+
+      function work() {
+         second++;
+         if (second == 60){
+            second = 0;
+            minute++;
+            if (minute == 60){
+               minute = 0;
+               hour++;
+            }
+         }
+         timing.innerHTML = (hour < 10 ? "0" + hour : hour) + ":" + 
+                            (minute < 10 ? "0" + minute : minute) + ":" + 
+                            (second < 10 ? "0" + second : second);
+      }
+
+      function watchStart() {
+         if (thing !== null){
+            clearInterval(thing);
+         }
+         thing = setInterval(work, 1000);
+      }
+      function watchStop(){
+
+         clearInterval(thing);
+      }
+      function watchReset(){
+         clearInterval(thing);
+         [second, minute, hour] = [0, 0, 0];
+         timing.innerHTML = "00:00:00"
+
+      }
+   </script>
+</body>
+</html>
